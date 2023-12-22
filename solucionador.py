@@ -207,6 +207,7 @@ class Solucionador:
       "funcao_objetivo": [self.a, self.b],
       "restricoes": self.restricoes,
       "vertices": self.vertices,
+      "valores_vertices": [self.calcular_valor_funcao(v) for v in self.vertices],
       "solucao_otima": solucao_otima,
       "valor_otimo": valor_otimo,
       "grafico": imgbase64

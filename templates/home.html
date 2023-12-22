@@ -1,6 +1,13 @@
 <!doctype html>
 <head>
     <title>Pesquisa Operacional .:|:. Método Gráfico</title>
+    <script lang="javascript">
+        function carregar_exemplo(){
+            document.forms[0].objetivo[0].checked = true;
+            document.forms[0].primal.value = "Z = 0,06x1 + 0,08x2";
+            document.forms[0].constraints.value = "8x1 + 6x2 >= 48\n1x1 + 2x2 >= 12\n1x1 + 2x2 <= 20";
+        }
+    </script>
 </head>
 <body>
     {% if not submitted %}
@@ -19,6 +26,8 @@
             <label for="constraints">Sujeito a:</label>
             <textarea name="constraints" id="" cols="30" rows="10"></textarea>
         </div>
+        <div>Tal que: x<sub>1</sub>, x<sub>2</sub> &GreaterEqual; 0</div>
+        <a href="javascript:carregar_exemplo()">Carregar exemplo</a>
         <div>
             <button type="submit">Ver para crer!</button>
         </div>
@@ -27,13 +36,20 @@
     <h1>Essa é a solução!</h1>
     <div>
         {{solucao.objetivo}}:
-        Z = {{solucao.funcao_objetivo[0]}}x1 + {{solucao.funcao_objetivo[1]}}x2
+        Z = {{solucao.funcao_objetivo[0]}}x<sub>1</sub> + {{solucao.funcao_objetivo[1]}}x<sub>2</sub>
     </div>
     <div>Sujeito a:
     {% for r in solucao.restricoes %}
-        <div>{{r.a}}x<sub>1</sub> + {{r.b}}x<sub>2</sub> {{r.sinal_grafico}} {{r.c}}</div>
+        <div style="margin-left: 2em;">{{r.a}}x<sub>1</sub> + {{r.b}}x<sub>2</sub> {{r.sinal_grafico}} {{r.c}}</div>
     {% endfor %}
     </div>
+    <div>Tal que: x<sub>1</sub>,x<sub>2</sub> &GreaterEqual; 0</div>
+    <div>Solução ótima = {{solucao.solucao_otima}}</div>
+    <div>Valor ótimo: Z<sup>*</sup> = {{solucao.valor_otimo}}</div>
+    <div>Vértices:</div>
+    {% for v in solucao.vertices %}
+        <div style="margin-left: 2em;">Z{{v}} = {{solucao.valores_vertices[loop.index-1]}}</div>
+    {% endfor %}
     <img src="data:image/png;base64,{{solucao.grafico}}" border="0" />
     <div>
         <button type="button"><a href="{{url_for('ver_para_crer_get')}}">Voltar</a></button>
