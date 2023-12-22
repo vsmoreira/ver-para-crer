@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+    <title>Pesquisa Operacional .:|:. Método Gráfico</title>
+</head>
+<body>
+    {% if not submitted %}
+    <h1>Eu tenho um problema!</h1>
+    <form action="/" method="post">
+        <div>
+            <label for="objetivo">Objetivo:</label>
+            <input type="radio" name="objetivo" value="MAX"> Maximizar
+            <input type="radio" name="objetivo" value="MIN"> Minimizar
+        </div>
+        <div>
+            <label for="primal">Função objetivo:</label>
+            <input type="text" name="primal" id="primal" placeholder="Z=ax1+bx2">
+        </div>
+        <div>
+            <label for="constraints">Sujeito a:</label>
+            <textarea name="constraints" id="" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <button type="submit">Ver para crer!</button>
+        </div>
+    </form>
+{% else %}
+    <h1>Essa é a solução!</h1>
+    <div>
+        {{solucao.objetivo}}:
+        Z = {{solucao.funcao_objetivo[0]}}x1 + {{solucao.funcao_objetivo[1]}}x2
+    </div>
+    <div>Sujeito a:
+    {% for r in solucao.restricoes %}
+        <div>{{r.a}}x<sub>1</sub> + {{r.b}}x<sub>2</sub> {{r.sinal_grafico}} {{r.c}}</div>
+    {% endfor %}
+    </div>
+    <img src="data:image/png;base64,{{solucao.grafico}}" border="0" />
+    <div>
+        <button type="button"><a href="{{url_for('ver_para_crer_get')}}">Voltar</a></button>
+    </div>
+{% endif %}
+</body>
