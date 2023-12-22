@@ -27,10 +27,8 @@ class Restricao:
     elif desigualdade == '>=':
       self.sinal = Restricao.SINAL_MAIOR_IGUAL
 
-  '''
-  Calcula a interseção entre a restrição e outra passada como parâmetro
-  '''
   def intersecao(self, L2) -> tuple:
+    '''Calcula a interseção entre a restrição e outra passada como parâmetro'''
     # a linha é uma reta horizontal
     if(self.a == 0):
       # a linha comparada também é uma reta horizontal
@@ -51,10 +49,8 @@ class Restricao:
       y=(-1*self.a*x+self.c)/self.b
     return (x,y)
 
-  '''
-  Calcula a interseção da restrição com o eixo x1
-  '''
   def intersecaox(self) -> tuple:
+    '''Calcula a interseção da restrição com o eixo x1'''
     if self.a == 0:
       return (-1,-1)
     elif self.b == 0:
@@ -62,10 +58,8 @@ class Restricao:
     else:
       return self.intersecao(Restricao(1,0,Restricao.SINAL_IGUAL,0))
 
-  '''
-  Calcula a interseção da restrição com o eixo x2
-  '''
   def intersecaoy(self) -> tuple:
+    '''Calcula a interseção da restrição com o eixo x2'''
     if self.b == 0:
       return (-1,-1)
     elif self.a == 0:
@@ -73,11 +67,10 @@ class Restricao:
     else:
       return self.intersecao(Restricao(0,1,Restricao.SINAL_IGUAL,0))
 
-  '''
-  Calcula a interseção da restrição com os eixos x1 e x2.
-  A coordenada de retorno (x1,x2) representa os pontos (x1,0) e (0,x2)
-  '''
   def intersecaoxy(self) -> tuple:
+    '''Calcula a interseção da restrição com os eixos x1 e x2.
+      A coordenada de retorno (x1,x2) representa os pontos (x1,0) e (0,x2)
+    '''
     if( self.a==0 ):
       return self.intersecaoy()
     elif( self.b==0 ):
@@ -90,6 +83,9 @@ class Restricao:
 
 
 class Solucionador:
+  """Classe utilizada para resolver problemas de programação linear
+    de 2 variáveis de decisão utilizando o método gráfico.
+  """
   OBJETIVO_MAXIMIZAR = 'MAX'
   OBJETIVO_MINIMIZAR = 'MIN'
   def __init__(self, coeficiente_x1:float, coeficiente_x2:float):

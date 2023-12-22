@@ -2,10 +2,11 @@
 <head>
     <title>Pesquisa Operacional .:|:. Método Gráfico</title>
     <script lang="javascript">
-        function carregar_exemplo(){
-            document.forms[0].objetivo[0].checked = true;
-            document.forms[0].primal.value = "Z = 0,06x1 + 0,08x2";
-            document.forms[0].constraints.value = "8x1 + 6x2 >= 48\n1x1 + 2x2 >= 12\n1x1 + 2x2 <= 20";
+        function carregar_exemplo(maximizar, funcao, restricoes){
+            document.forms[0].objetivo[0].checked = maximizar;
+            document.forms[0].objetivo[1].checked = !maximizar;
+            document.forms[0].primal.value = funcao;
+            document.forms[0].constraints.value = restricoes;
         }
     </script>
 </head>
@@ -24,10 +25,13 @@
         </div>
         <div>
             <label for="constraints">Sujeito a:</label>
-            <textarea name="constraints" id="" cols="30" rows="10"></textarea>
+            <textarea name="constraints" id="" cols="30" rows="10" placeholder="Uma restrição por linha. Ex. 8x1 + 6x2 >= 48"></textarea>
         </div>
         <div>Tal que: x<sub>1</sub>, x<sub>2</sub> &GreaterEqual; 0</div>
-        <a href="javascript:carregar_exemplo()">Carregar exemplo</a>
+        <div> Carregar: 
+            <a href="javascript:carregar_exemplo(false,'Z = 0,06x1 + 0,08x2','8x1 + 6x2 >= 48\nx1 + 2x2 >= 12\nx1 + 2x2 <= 20')">Exemplo 1</a>&nbsp;
+            <a href="javascript:carregar_exemplo(true,'Z = 60x1 + 30x2','6x1 + 8x2 <= 48\nx1 <= 6\nx2 <= 4')">Exemplo 2</a>
+        </div>
         <div>
             <button type="submit">Ver para crer!</button>
         </div>
