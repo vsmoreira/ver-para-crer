@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, abort
 from solucionador import Restricao, Solucionador
-import re
+import re, os
 
 app = Flask(__name__)
 
@@ -90,3 +90,6 @@ def c_parser(c:str):
         
         retorno.append(coeficientes)
     return retorno
+
+if __name__ == '__main__':
+    app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))

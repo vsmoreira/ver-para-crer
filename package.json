@@ -1,0 +1,15 @@
+{
+  "name": "ver-para-crer",
+  "version": "1.0.0",
+  "description": "Método gráfico para resolução de problemas de programação linear com 2 variáveis de decisão",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "firebase-tools": "^13.0.2"
+  }
+}
