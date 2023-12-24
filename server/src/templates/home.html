@@ -2,6 +2,8 @@
 {% block title %}Home{% endblock %}
 {% block head %}
     {{ super() }}
+    {% if not submitted %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script lang="javascript">
         function carregar_exemplo(maximizar, funcao, restricoes){
             document.forms[0].objetivo[0].checked = maximizar;
@@ -9,37 +11,56 @@
             document.forms[0].primal.value = funcao;
             document.forms[0].constraints.value = restricoes;
         }
+        window.addEventListener('load', () => {
+            const $recaptcha = document.querySelector('#g-recaptcha-response');
+            if ($recaptcha) {
+                $recaptcha.setAttribute('required', 'required');
+            }
+        })
     </script>
-
+    {% endif %}
 {% endblock %}
 {% block content %}
     {% if not submitted %}
-    <h1>Eu tenho um problema!</h1>
+    <h1 class="title">Eu tenho um problema!</h1>
+    <p class="subtitle">Descreva a seguir o seu Problema de Programação Linear (PPL), 
+        com 2 variáveis de decisão, bem como as restrições que as limitam e clique no botão 
+        <strong>Ver para crer!</strong> para ver a solução ideal, caso ela exista.
+    </p>
     <form action="/" method="post">
-        <div>
-            <label for="objetivo">Objetivo:</label>
-            <input type="radio" name="objetivo" value="MAX"> Maximizar
-            <input type="radio" name="objetivo" value="MIN"> Minimizar
+        <div class="field">
+            <div class="control">
+                <label class="radio">
+                    <input type="radio" name="objetivo" value="MAX" required> Maximizar
+                </label>
+                <label class="radio">
+                    <input type="radio" name="objetivo" value="MIN" required> Minimizar
+                </label>
+            </div>
         </div>
-        <div>
-            <label for="primal">Função objetivo:</label>
-            <input type="text" name="primal" id="primal" placeholder="Z=ax1+bx2">
+        <div class="field">
+            <label class="label" for="primal">Função objetivo:</label>
+            <div class="control"><input class="input" type="text" name="primal" id="primal" placeholder="Z=ax1+bx2" required></div>
         </div>
-        <div>
-            <label for="constraints">Sujeito a:</label>
-            <textarea name="constraints" id="" cols="30" rows="10" placeholder="Uma restrição por linha. Ex. 8x1 + 6x2 >= 48"></textarea>
+        <div class="field">
+            <label class="label" for="constraints">Sujeito a:</label>
+            <div class="control">
+                <textarea class="textarea" name="constraints" id="" cols="30" rows="10" 
+                placeholder="Uma restrição por linha. Ex. 8x1 + 6x2 >= 48" required></textarea>
+            </div>
         </div>
         <div>Tal que: x<sub>1</sub>, x<sub>2</sub> &GreaterEqual; 0</div>
-        <div> Carregar: 
-            <a href="javascript:carregar_exemplo(false,'Z = 0,06x1 + 0,08x2','8x1 + 6x2 >= 48\nx1 + 2x2 >= 12\nx1 + 2x2 <= 20')">Exemplo 1</a>&nbsp;
+        <div class="notification"> Você pode testar a aplicação carregando um dos <strong>exemplos</strong> a seguir: 
+            <a href="javascript:carregar_exemplo(false,'Z = 0,06x1 + 0,08x2','8x1 + 6x2 >= 48\nx1 + 2x2 >= 12\nx1 + 2x2 <= 20')">Exemplo 1</a>, 
             <a href="javascript:carregar_exemplo(true,'Z = 60x1 + 30x2','6x1 + 8x2 <= 48\nx1 <= 6\nx2 <= 4')">Exemplo 2</a>
         </div>
+        <div class="g-recaptcha" data-sitekey="6Lf_4TkpAAAAAAaxRD1SLX0N4YquMgXspYkaXQWd"></div>
         <div>
-            <button type="submit">Ver para crer!</button>
+            <button class="button is-primary" type="submit">Ver para crer!</button>
         </div>
     </form>
     {% else %}
-    <h1>Essa é a solução!</h1>
+    <h1 class="title">Essa é a solução!</h1>
     <div>
         {{solucao.objetivo}}:
         Z = {{solucao.funcao_objetivo[0]}}x<sub>1</sub> + {{solucao.funcao_objetivo[1]}}x<sub>2</sub>
@@ -56,9 +77,11 @@
     {% for v in solucao.vertices %}
         <div style="margin-left: 2em;">Z{{v}} = {{solucao.valores_vertices[loop.index-1]}}</div>
     {% endfor %}
-    <img src="data:image/png;base64,{{solucao.grafico}}" border="0" />
+    
+    <img src="data:image/png;base64,{{solucao.grafico}}" alt="Solução gráfica" />
+    
     <div>
-        <button type="button"><a href="{{url_for('ver_para_crer_get')}}">Voltar</a></button>
+       <a class="button" href="{{url_for('ver_para_crer_get')}}">Voltar</a>
     </div>
     {% endif %}    
 {% endblock %}
