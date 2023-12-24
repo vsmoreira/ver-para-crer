@@ -1,6 +1,8 @@
 # Ver Para Crer
 Um projeto Python que implementa um método gráfico para resolução de problemas de programação linear com 2 variáveis de decisão e um frontend para utilizar o método e consultar seus resultados.
 
+Aplicação disponível para uso em [ver-para-crer-e578d.web.app](https://ver-para-crer-e578d.web.app)
+
 ## Frontend
 
 O frontend foi desenvolvido com o framework [Flask](https://flask.palletsprojects.com). Para rodar o projeto em container, basta fazer o build e rodar a imagem Docker do projeto disponível na pasta server.
@@ -28,17 +30,16 @@ Define uma restrição linear para o problema de otimização matemática bem co
 
 Modo de usar
 
-Para instanciar uma nova restrição é necessário passar 4 parâmetros: coeficiente de x1, coeficiente de x2, código do sinal de igualdade/desigualdade e a constante de restrição.
+Para instanciar uma nova restrição é necessário passar 4 parâmetros: coeficiente de x1, coeficiente de x2, sinal de igualdade/desigualdade e a constante de restrição.
 
-Códigos válidos para o sinal da restrição:
+Valores válidos para o sinal da restrição:
 
-0.   Para o sinal de igualdade (=)
-1.   Para o sinal menor (<)
-2.   Para o sinal maior (>)
-3.   Para o sinal menor e igual (<=)
-4.   Para o sinal maior e igual (>=)
+0.   Sinal de igualdade (=)
+1.   Sinal menor (<)
+2.   Sinal maior (>)
+3.   Sinal menor e igual (<=)
+4.   Sinal maior e igual (>=)
 
-Opcionalmente, podem ser utilizadas as constantes de sinal, conforme mostrado no exemplo abaixo.
 ```
 # 4x1 + 8x2 <= 20
 r = Restricao(4,8,Restricao.SINAL_MENOR_IGUAL,20)
