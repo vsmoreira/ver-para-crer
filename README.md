@@ -17,7 +17,7 @@ Para rodar o frontend localmente, é necessário instalar as dependências Flask
 
     pip install Flask, matplotlib
 
-É reomendado a utilização de um ambiente Python virtualizado antes de rodar o comando acima. Para tanto, siga as instruções disponiveis na [documentação](https://flask.palletsprojects.com/en/3.0.x/installation/#virtual-environments) do Flask.
+É recomendada a utilização de um ambiente Python virtualizado antes de rodar o comando acima. Para tanto, siga as instruções disponiveis na [documentação](https://flask.palletsprojects.com/en/3.0.x/installation/#virtual-environments) do Flask.
 
 ## Backend
 O backend é composto basicamente pelas classes Solucionador e Restricao presentes no arquivo server/src/solucionador.py.
