@@ -164,3 +164,6 @@ node_modules/
 .firebase/
 .firebaserc
 package-lock.json
+
+# IDE
+.vscode/

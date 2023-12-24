@@ -1,7 +1,7 @@
-<!doctype html>
-<head>
-    <title>Pesquisa Operacional .:|:. Método Gráfico</title>
-    <link rel="stylesheet" href="style.css">
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+    {{ super() }}
     <script lang="javascript">
         function carregar_exemplo(maximizar, funcao, restricoes){
             document.forms[0].objetivo[0].checked = maximizar;
@@ -10,8 +10,9 @@
             document.forms[0].constraints.value = restricoes;
         }
     </script>
-</head>
-<body>
+
+{% endblock %}
+{% block content %}
     {% if not submitted %}
     <h1>Eu tenho um problema!</h1>
     <form action="/" method="post">
@@ -37,7 +38,7 @@
             <button type="submit">Ver para crer!</button>
         </div>
     </form>
-{% else %}
+    {% else %}
     <h1>Essa é a solução!</h1>
     <div>
         {{solucao.objetivo}}:
@@ -59,5 +60,5 @@
     <div>
         <button type="button"><a href="{{url_for('ver_para_crer_get')}}">Voltar</a></button>
     </div>
-{% endif %}
-</body>
+    {% endif %}    
+{% endblock %}
