@@ -42,11 +42,11 @@ Valores válidos para o sinal da restrição:
 
 ```
 # 4x1 + 8x2 <= 20
-r = Restricao(4,8,Restricao.SINAL_MENOR_IGUAL,20)
+r = Restricao(4,8,'<=',20)
 # x1 <= 3. Neste caso, o coeficinente de x2 deve ser igual a zero
-r = Restricao(1,0,Restricao.SINAL_MENOR_IGUAL,3)
+r = Restricao(1,0,'<=',3)
 # 4x2 >= 20. Neste caso, o coeficiente de x1 deve ser igual a zero
-r = Restricao(0,4,Restricao.SINAL_MAIOR_IGUAL,20)
+r = Restricao(0,4,'>=',20)
 ```
 
 ### Classe Solucionador
@@ -79,11 +79,23 @@ Maximizar: Z = 50x1 + 75x2
   # Z = 50x1 + 75x2
   s = Solucionador(50,75)
   # Restrição 1: 4x1 <= 12
-  s.adicionar_restricao(Restricao(4,0,Restricao.SINAL_MENOR_IGUAL,12))
+  s.adicionar_restricao(Restricao(4,0,'<=',12))
   # Restrição 2: 4x1 + 8x2 <= 20
-  s.adicionar_restricao(Restricao(4,8,Restricao.SINAL_MENOR_IGUAL,20))
+  s.adicionar_restricao(Restricao(4,8,'<=',20))
   # Restricao 3: 8x1 + 20x2 <= 50
-  s.adicionar_restricao(Restricao(8,20,Restricao.SINAL_MENOR_IGUAL,50))
+  s.adicionar_restricao(Restricao(8,20,'<=',50))
   # Objetivo maximizar
   s.maximizar()
 ```
+
+O método de otimização (minimizar() ou maximizar()) retornará um dicionário contendo as chaves:
+
+- objetivo: String com a descrição do objetivo contendo um dos valores 'minimizar' ou 'maximizar'
+- funcao_objetivo: Array de float com duas posições contendo os coeficientes de x1 e de x2
+- restricoes: Array de objetos do tipo Restricao
+- vertices: Array de tuplas de float com dois elementos (x1,x2)
+- valores_vertices: Array de float com os valores dos respectivos vértices
+- solucao_otima: Tupla de float com 2 elementos referentes aos valores de x1 e de x2 que otimizam o função objetivo
+- valor_otimo: Float que reprsenta o valor da função objetivo no ponto ótimo
+- grafico: Imagem da solução gráfica codificada em base64
+
