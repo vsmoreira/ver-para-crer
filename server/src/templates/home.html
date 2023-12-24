@@ -27,7 +27,7 @@
         com 2 variáveis de decisão, bem como as restrições que as limitam e clique no botão 
         <strong>Ver para crer!</strong> para ver a solução ideal, caso ela exista.
     </p>
-    <form action="/" method="post">
+    <form action="/" method="post" class="column is-6">
         <div class="field">
             <div class="control">
                 <label class="radio">
@@ -56,32 +56,38 @@
         </div>
         <div class="g-recaptcha" data-sitekey="6Lf_4TkpAAAAAAaxRD1SLX0N4YquMgXspYkaXQWd"></div>
         <div>
-            <button class="button is-primary" type="submit">Ver para crer!</button>
+            <button class="button is-primary" type="submit">Ver para crer!</button> 
+            <button class="button is-primary is-light" type="reset">Limpar</button>
         </div>
     </form>
     {% else %}
-    <h1 class="title">Essa é a solução!</h1>
-    <div>
-        {{solucao.objetivo}}:
-        Z = {{solucao.funcao_objetivo[0]}}x<sub>1</sub> + {{solucao.funcao_objetivo[1]}}x<sub>2</sub>
+    <div class="content">
+        <h1 class="title">Essa é a solução!</h1>
+        <dl>
+            <dt>{{solucao.objetivo | title}}</dt>
+            <dd>Z = {{solucao.funcao_objetivo[0]}}x<sub>1</sub> + {{solucao.funcao_objetivo[1]}}x<sub>2</sub></dd>
+            <dt>Sujeito a</dt>
+            {% for r in solucao.restricoes %}
+                <dd>{{r.a}}x<sub>1</sub> + {{r.b}}x<sub>2</sub> {{r.sinal_grafico | sinaliza | safe}} {{r.c}}</dd>
+            {% endfor %}
+            <dt>Tal que</dt>
+            <dd>x<sub>1</sub>,x<sub>2</sub> &ge; 0</dd>
+        </dl>
+        <dl>
+            <dt>Solução ótima</dt>
+            <dd>{{solucao.solucao_otima}}</dd>
+            <dt>Valor ótimo</dt>
+            <dd>Z<sup>*</sup> = {{solucao.valor_otimo}}</dd>
+            <dt>Vértices</dt>
+            {% for v in solucao.vertices %}
+                <dd>Z{{v}} = {{solucao.valores_vertices[loop.index-1]}}</dd>
+            {% endfor %}
+        </dl>
     </div>
-    <div>Sujeito a:
-    {% for r in solucao.restricoes %}
-        <div style="margin-left: 2em;">{{r.a}}x<sub>1</sub> + {{r.b}}x<sub>2</sub> {{r.sinal_grafico}} {{r.c}}</div>
-    {% endfor %}
-    </div>
-    <div>Tal que: x<sub>1</sub>,x<sub>2</sub> &GreaterEqual; 0</div>
-    <div>Solução ótima = {{solucao.solucao_otima}}</div>
-    <div>Valor ótimo: Z<sup>*</sup> = {{solucao.valor_otimo}}</div>
-    <div>Vértices:</div>
-    {% for v in solucao.vertices %}
-        <div style="margin-left: 2em;">Z{{v}} = {{solucao.valores_vertices[loop.index-1]}}</div>
-    {% endfor %}
-    
     <img src="data:image/png;base64,{{solucao.grafico}}" alt="Solução gráfica" />
-    
+
     <div>
-       <a class="button" href="{{url_for('ver_para_crer_get')}}">Voltar</a>
+       <a class="button is-primary is-light" href="{{url_for('ver_para_crer_get')}}">Voltar</a>
     </div>
     {% endif %}    
 {% endblock %}

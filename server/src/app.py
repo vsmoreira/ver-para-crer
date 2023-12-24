@@ -29,6 +29,19 @@ def ver_para_crer_post():
 def erro_execucao(error: str=None):
     return render_template("error.html", error=error), 500
 
+@app.template_filter('sinaliza')
+def sinaliza(s):
+    if s == '>':
+        return '&gt;'
+    elif s == '<':
+        return '&lt;'
+    elif s == '>=':
+        return '&ge;'
+    elif s == '<=':
+        return '&le;'
+    else:
+        return s
+
 def z_parser(z:str):
     """Retorna um array com os coeficientes de x1 e de x2 da função objetivo."""
     if z.find('x1') < 0 or z.find('x2') < 0:
