@@ -193,10 +193,8 @@ class Solucionador:
     self.calcular_vertices()
     if len(self.vertices) == 0:
       raise Exception('Não há solução possível para o problema')
-    self.imprimir_dados_problema(objetivo)
+    # self.imprimir_dados_problema(objetivo)
     solucao_otima,valor_otimo = self.solucao_otima(objetivo)
-    print(f'Solução ótima: {solucao_otima}')
-    print(f'Valor ótimo:{valor_otimo}')
     imgbase64 = self.plotar(solucao_otima)
     retorno = {
       "objetivo": "maximizar",
