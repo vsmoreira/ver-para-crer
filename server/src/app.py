@@ -97,7 +97,7 @@ def c_parser(c:str):
             abort(500,constraint)
         else:
             coeficientes_grp = coeficientes_grp.groups()
-        # print(coeficientes_grp)
+
         # tratamento do coeficiente de x1
         if coeficientes_grp[1] != None:
             if coeficientes_grp[2] == None:
@@ -144,7 +144,7 @@ def validate_recaptcha(response, remote_addr):
         return False
 
     json_resp = json.loads(http_response.read())
-    print(json_resp)
+
     if json_resp["success"]:
         return True
 
