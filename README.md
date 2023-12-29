@@ -1,7 +1,7 @@
 # Ver Para Crer
 Um projeto Python que implementa um método gráfico para resolução de problemas de programação linear com 2 variáveis de decisão e um frontend para utilizar o método e consultar seus resultados.
 
-Aplicação disponível para uso em [http://vsmoreira.pythonanywhere.com](https://http://vsmoreira.pythonanywhere.com)
+Aplicação disponível para uso em [https://vsmoreira.pythonanywhere.com](vsmoreira.pythonanywhere.com)
 
 ## Frontend
 
